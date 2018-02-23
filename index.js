@@ -13,6 +13,8 @@ app.use(express.static(__dirname + '/public'));
 // listen to 'chat' messages
 io.on('connection', function(socket){
     
+    io.emit('nick', 'User'+ io.engine.clientsCount);
+
     socket.on('chat', function( msg){
     var time = new Date();
 	io.emit('chat', {time_id:time, body:msg});
