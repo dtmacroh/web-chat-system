@@ -1,12 +1,40 @@
 // shorthand for $(document).ready(...)
 $(function() {
     var socket = io();
+   
     $('form').submit(function(){
-	socket.emit('chat', $('#m').val());
+    var message = $('#m').val();
+  
+    var mess_args = message.split(" ");
+    if (mess_args.length==2 && mess_args[0]=="/nick")
+    {
+        console.log("changing Nick");
+        socket.emit('nick', mess_args[1]);
+        console.log(mess_args[1]);
+    }
+    else{
+        console.log("still of the chat");
+        socket.emit('chat',message );
+    }
+	
 	$('#m').val('');
 	return false;
     });
     socket.on('chat', function(msg){
-	$('#messages').append($('<li>').text(msg));
+    var time = new Date(msg.time_id);
+    var body = msg.body;
+    console.log(time + " "+ body);
+	$('#messages').append($('<li>').text( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+" " +msg.body));
     });
+
+    socket.on('nick', function(nick){
+        
+       console.log(nick);
+        $('#userNick').text(nick);});
+    
+    
+
+
 });
+
+//
