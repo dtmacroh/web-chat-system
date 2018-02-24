@@ -1,14 +1,21 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font: 13px Helvetica, Arial; }
+header{margin: 20px;
+    text-align: center;}
 #chat-box-send{
     bottom: 10px;
     position:fixed;
-    width: 90%; 
+    right:0;
+    left:0;
+    margin-left:20%;
+    margin-right: 20%;
 }
 .chat-box{
     margin-top:10px;
     background-color: darkgray;
     padding: 5px;
+    overflow-y: scroll;
+    height:85vh;
 }
 #userNick{
     display:inline;
@@ -21,8 +28,8 @@ form
    
 }
 
-form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-form button { width: 9%; background: rgb(36, 121, 150); border: none; padding: 10px; }
+form input {  padding: 10px; width: 97%;  }
+form button { visibility: hidden; }
 
 #messages { list-style-type: none; margin: 0; padding: 0; }
 #messages li { padding: 5px 10px; }

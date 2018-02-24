@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-var port = process.env.PORT || 1238;
+var port = process.env.PORT || 1230;
 
 http.listen( port, function () {
     console.log('listening on port', port);
@@ -23,7 +23,7 @@ io.on('connection', function(socket){
 
     socket.on('nick', function(nick){
     console.log(nick);
-    io.emit('nick', nick);
+    io.send('nick', nick);
     });
     
     console.log("There are "+io.engine.clientsCount+ " users");
