@@ -17,7 +17,7 @@ io.on('connection', function(socket){
     clientArray.push(socket.id);
     console.log(socket.id);
     io.to(socket.id).emit('nick', 'User'+ io.engine.clientsCount);
-    io.emit('welcome',msgStore);
+    io.to(socket.id).emit('welcome',msgStore);
     console.log("msgStore " +msgStore);
    
     
@@ -26,6 +26,7 @@ io.on('connection', function(socket){
         var time = new Date();
         var msgObj = {time_id:time, body:msg,clientId:socket.id};
         io.emit('chat',msgObj );
+        console.log("msgObj " +msgObj.time_id + " " + msgObj.body);
         msgStore.push(msgObj);
         if (msgCount>=200){
             msgStore.shift();

@@ -20,10 +20,13 @@ $(function() {
     }
     
     socket.on('welcome', function(wel){
-        foreach (ob in wel)
+        console.log("i am welcomed");
+        //console.log(wel); 
+        
+        for ( var i=0; i< wel.length;i++)
         {
-            console.log(ob.msg.time_id+ " "+ob.msg.body)   
-            $('#messages').append($('<li>').text( (new Date(ob.msg.time_id)).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+" " + ob.msg.body));
+            console.log("in client" +wel[i].time_id+ " "+wel[i].body)  ;
+            $('#messages').append($('<li>').text( (new Date(wel[i].time_id)).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+" " + wel[i].body));
 
         }
     });
