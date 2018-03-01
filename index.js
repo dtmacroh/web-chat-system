@@ -20,10 +20,12 @@ io.on('connection', function(socket){
 	io.emit('chat', {time_id:time, body:msg});
     });
 
-
+    
+    
     socket.on('nick', function(nick){
     console.log(nick);
-    io.send('nick', nick);
+    io.clients[sessionID].send('nick', nick);
+    //io.send('nick', nick);
     });
     
     console.log("There are "+io.engine.clientsCount+ " users");
