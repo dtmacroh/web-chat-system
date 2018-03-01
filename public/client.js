@@ -9,6 +9,7 @@ $(function() {
     if (mess_args.length==2 && mess_args[0]=="/nick")
     {
         console.log("changing Nick");
+       // sockets.socket(savedSocketId).emit()
         socket.emit('nick', mess_args[1]);
         console.log(mess_args[1]);
     }
@@ -32,7 +33,8 @@ $(function() {
     socket.on('nick', function(nick){
         
        //console.log(nick);
-        $('#userNick').text(nick);
+        
+       $('#userNick').text(nick);
         userNickSt =  $('#userNick').text();
     
     });
