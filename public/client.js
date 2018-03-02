@@ -2,6 +2,7 @@
 $(function() {
     var socket = io();
     var userNickSt= "";
+    socket.emit('wel', "hidi");
     $('form').submit(function(){
 
     var message = $('#m').val();
@@ -19,17 +20,7 @@ $(function() {
         socket.emit('chat',message );
     }
     
-    socket.on('welcome', function(wel){
-        console.log("i am welcomed");
-        //console.log(wel); 
-        
-        for ( var i=0; i< wel.length;i++)
-        {
-            console.log("in client" +wel[i].time_id+ " "+wel[i].body)  ;
-            $('#messages').append($('<li>').text( (new Date(wel[i].time_id)).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+" " + wel[i].body));
-
-        }
-    });
+   
 
 	$('#m').val('');
 	return false;
@@ -38,6 +29,7 @@ $(function() {
     
         var time = new Date(msg.time_id);
         var body = msg.body;
+    
         console.log(time + " "+ body);
         $('#messages').append($('<li>').text( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+" "+userNickSt+" " + msg.body));
      });
@@ -49,6 +41,15 @@ $(function() {
        $('#userNick').text(nick);
         userNickSt =  $('#userNick').text();
     
+    });
+    socket.on('wel', function(wel){
+        console.log("i am welcomed");
+        for ( var i=0; i< wel.length;i++)
+        {
+            console.log("in client" +wel[i].time_id+ " "+wel[i].body)  ;
+            $('#messages').append($('<li>').text( (new Date(wel[i].time_id)).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+" " + wel[i].body));
+
+        }
     });
         
         console.log(userNickSt);
