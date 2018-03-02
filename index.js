@@ -44,7 +44,7 @@ io.on('connection', function(socket){
 
     socket.on('nick', function(nick){
         console.log(nick);
-        if (!nick in mapping.values())
+        if (!nick in Object.values(mapping))
         {
             console.log("nick is granted");
         }
