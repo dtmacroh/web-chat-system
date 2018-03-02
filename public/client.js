@@ -31,7 +31,7 @@ $(function() {
         var body = msg.body;
     
         console.log(time + " "+ body);
-        $('#messages').append($('<li>').text( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+" "+userNickSt+" " + msg.body));
+        $('#messages').append($('<li>').text( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+" "+msg.clientId+" " + msg.body));
      });
 
     socket.on('nick', function(nick){
