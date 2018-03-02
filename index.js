@@ -38,9 +38,19 @@ io.on('connection', function(socket){
        
     });
 
+
+
+
+
     socket.on('nick', function(nick){
         console.log(nick);
-    
+        if (!nick in mapping.values())
+        {
+            console.log("nick is granted");
+        }
+        else{
+            console.log("nick in use");
+        }
         io.to(socket.id).emit('nick', nick);
     //io.send('nick', nick);
     });
