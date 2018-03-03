@@ -14,6 +14,9 @@ $(function() {
         socket.emit('nick', mess_args[1]);
         console.log(mess_args[1]);
     }
+    else if (mess_args.length==2 && mess_args[0]=="/nickcolor") {
+        console.log("nick color invoked");
+    }
     else{
         socket.emit('chat',message );
     }

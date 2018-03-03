@@ -25,7 +25,7 @@ io.on('connection', function(socket){
         
     // }
     io.to(socket.id).emit('wel',msgStore);
-   
+    io.emit('userList', Object.values(mapping));
 
     io.to(socket.id).emit('nick', 'User'+ io.engine.clientsCount);
     mapping[socket.id] = 'User'+ io.engine.clientsCount;
@@ -62,6 +62,7 @@ io.on('connection', function(socket){
             mapping[socket.id] = nick;
         }
         io.to(socket.id).emit('nick', nick);
+        io.emit('userList', Object.values(mapping))
     //io.send('nick', nick);
     });
    
