@@ -15,8 +15,8 @@ var clientArray = [];
 // listen to 'chat' messages
 io.on('connection', function(socket){
     //initialization of client
-    clientArray.push(socket.id);
-      
+   
+   
     //var msgStore2 =msgStore;
 
     // for(let i=0;i<msgStore.length;i++)
@@ -25,10 +25,32 @@ io.on('connection', function(socket){
         
     // }
     io.to(socket.id).emit('wel',msgStore);
-    io.emit('userList', Object.values(mapping));
+    let c = io.clients().sockets;
 
-    io.to(socket.id).emit('nick', 'User'+ io.engine.clientsCount);
-    mapping[socket.id] = 'User'+ io.engine.clientsCount;
+    var possibleNick =  io.engine.clientsCount;
+    var nick = "User"+possibleNick;
+    // while (nick in Object.values(mapping))
+    // {
+    //     possibleNick++;
+    //     nick = "User"+possibleNick;
+       
+    // }
+    if (socket.id in mapping)
+    {
+        console.log("already exists");
+    } else{
+        mapping[socket.id] = nick;
+        io.to(socket.id).emit('nick', nick);
+    }
+   
+
+    let activeClients = [];
+    for (n in c)
+    {
+       activeClients.push(mapping[n]);
+    }
+    io.emit('userList', activeClients);
+    console.log("activeClients " +activeClients);
     console.log("msgStore " +msgStore);
   
     
@@ -65,7 +87,17 @@ io.on('connection', function(socket){
         io.emit('userList', Object.values(mapping))
     //io.send('nick', nick);
     });
-   
+    socket.on('disconnect', function (socket) {
+        io.emit('user disconnected');
+        var c = io.clients().sockets;
+        for (n in c)
+        {
+  
+            console.log(n);
+            
+        }
+      });
+     
 
     
     console.log("There are "+io.engine.clientsCount+ " users");

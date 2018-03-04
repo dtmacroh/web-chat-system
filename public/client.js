@@ -32,8 +32,16 @@ $(function() {
         var body = msg.body;
     
         console.log(time + " "+ body);
-        $('#messages').append($('<li>').text( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+
-        " "+msg.clientId+" " + msg.body));
+       // $('#messages').append($('<li>').text( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+
+       // " "+msg.clientId+" " + msg.body));
+      
+        $('#messages').append($('<li>').html( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+" "+
+         msg.clientId+ " "+ msg.body));
+      
+       if (userNickSt==msg.clientId){
+         $( "#messages" ).children().last().css( "font-weight", "bold" );
+       }
+
      });
 
     socket.on('nick', function(nick){
@@ -47,14 +55,27 @@ $(function() {
     socket.on('wel', function(wel){
         for ( var i=0; i< wel.length;i++)
         {
-            console.log("in client" +wel[i].time_id+ " "+wel[i].body+" "+wel[i].clientId)  ;
-            $('#messages').append($('<li>').text( (new Date(wel[i].time_id)).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })
-            +" " +wel[i].clientId+" " +wel[i].body));
+            if (userNickSt===wel[i].clientId){
+                $('#messages').append($('<li>').html(  '<b>' +(new Date(wel[i].time_id)).toLocaleString('en-US', { hour: 'numeric', 
+                minute: 'numeric' }) +'<b> &nbsp' +wel[i].clientId+'&nbsp</b>' +wel[i].body)+ '</b>' );
+            }
+            else{
+                $('#messages').append($('<li>').html( (new Date(wel[i].time_id)).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })
+                +" " +wel[i].clientId+" " +wel[i].body));
+            }
 
         }
     });
-        
-        console.log(userNickSt);
+    socket.on('userList', function(list){
+        $('#userList').empty();
+        for ( var i=0; i< list.length;i++)
+        {
+            console.log(list[i]);
+             $('#userList').append($('<li>').text(list[i]));
+        }
+         
+    });
+       
     
     
 
