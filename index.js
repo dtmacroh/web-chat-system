@@ -6,6 +6,7 @@ var port = process.env.PORT || 1234;
 var msgStore = [];
 var msgCount =0;
 var mapping = {};
+var colors = {};
 http.listen( port, function () {
     console.log('listening on port', port);
 });
@@ -25,7 +26,7 @@ io.on('connection', function(socket){
         
     // }
     io.to(socket.id).emit('wel',msgStore);
-    let c = io.clients().sockets;
+   
 
     var possibleNick =  io.engine.clientsCount;
     var nick = "User"+possibleNick;
@@ -43,23 +44,20 @@ io.on('connection', function(socket){
         io.to(socket.id).emit('nick', nick);
     }
    
-
+    let c = io.clients().sockets;
     let activeClients = [];
     for (n in c)
     {
        activeClients.push(mapping[n]);
     }
     io.emit('userList', activeClients);
-    console.log("activeClients " +activeClients);
-    console.log("msgStore " +msgStore);
-  
-    
+       
     socket.on('chat', function( msg){
         msgCount++;
         var time = new Date();
         var chatUsr = mapping[socket.id];
         
-        var msgObj = {time_id:time, body:msg,clientId:chatUsr};
+        var msgObj = {time_id:time, body:msg,clientId:chatUsr,color:colors[socket.id]};
         io.emit('chat',msgObj );
         console.log("msgObj " +msgObj.time_id + " " + msgObj.body+ " "+msgObj.clientId);
         msgStore.push(msgObj);
@@ -70,35 +68,32 @@ io.on('connection', function(socket){
     });
 
 
-
-
-
     socket.on('nick', function(nick){
-        console.log(nick);
         if (nick in Object.values(mapping))
         {
-            console.log("nick in use");
+            io.to(socket.id).emit('nick', -1);
         }
         else{
             console.log("nick is granted");
             mapping[socket.id] = nick;
+            io.to(socket.id).emit('nick', nick);
         }
-        io.to(socket.id).emit('nick', nick);
+       
         io.emit('userList', Object.values(mapping))
-    //io.send('nick', nick);
     });
+   
     socket.on('disconnect', function (socket) {
-        io.emit('user disconnected');
-        var c = io.clients().sockets;
+        let c = io.clients().sockets;
+        let activeClients = [];
         for (n in c)
         {
-  
-            console.log(n);
-            
+           activeClients.push(mapping[n]);
         }
+        io.emit('userList', activeClients);
       });
-     
-
     
-    console.log("There are "+io.engine.clientsCount+ " users");
+    socket.on('nickcolor', function (color) {
+       colors[socket.id] = color;
+      });
+
 });

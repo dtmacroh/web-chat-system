@@ -16,6 +16,7 @@ $(function() {
     }
     else if (mess_args.length==2 && mess_args[0]=="/nickcolor") {
         console.log("nick color invoked");
+        socket.emit('nickcolor', mess_args[1]);
         color = mess_args[1];
         console.log(color);
     }
@@ -38,12 +39,12 @@ $(function() {
        // " "+msg.clientId+" " + msg.body));
       
         $('#messages').append($('<li>').html( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+
-        '<p style = "display:inline"> &nbsp'+
+        '<p style = "display:inline; color:#'+msg.color+'"> &nbsp'+
          msg.clientId+'&nbsp</p>'+ msg.body));
       
        if (userNickSt==msg.clientId){
          $( "#messages" ).children().last().css( "font-weight", "bold" );
-         $( "#messages" ).children().last().children().last().css( "color", "#"+color );
+        // $( "#messages" ).children().last().children().last().css( "color", "#"+color );
        }
 
      });
@@ -51,9 +52,11 @@ $(function() {
     socket.on('nick', function(nick){
         
        //insert check here
-        
-       $('#userNick').text(nick);
-        userNickSt =  $('#userNick').text();
+        if (nick!=1){
+            $('#userNick').text(nick);
+            userNickSt =  $('#userNick').text();
+        }
+      
     
     });
     socket.on('wel', function(wel){
