@@ -2,6 +2,8 @@
 $(function() {
     var socket = io();
     var userNickSt=  $('#userNick').value;
+    var color= "";
+    
     socket.emit('wel', "hidi");
     $('form').submit(function(){
 
@@ -10,12 +12,12 @@ $(function() {
     var mess_args = message.split(" ");
     if (mess_args.length==2 && mess_args[0]=="/nick")
     {
-       
         socket.emit('nick', mess_args[1]);
-        console.log(mess_args[1]);
     }
     else if (mess_args.length==2 && mess_args[0]=="/nickcolor") {
         console.log("nick color invoked");
+        color = mess_args[1];
+        console.log(color);
     }
     else{
         socket.emit('chat',message );
@@ -35,11 +37,13 @@ $(function() {
        // $('#messages').append($('<li>').text( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+
        // " "+msg.clientId+" " + msg.body));
       
-        $('#messages').append($('<li>').html( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+" "+
-         msg.clientId+ " "+ msg.body));
+        $('#messages').append($('<li>').html( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+
+        '<p style = "display:inline"> &nbsp'+
+         msg.clientId+'&nbsp</p>'+ msg.body));
       
        if (userNickSt==msg.clientId){
          $( "#messages" ).children().last().css( "font-weight", "bold" );
+         $( "#messages" ).children().last().children().last().css( "color", "#"+color );
        }
 
      });
