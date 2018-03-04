@@ -1,8 +1,12 @@
 // shorthand for $(document).ready(...)
+
+alert(document.cookie);
 $(function() {
     var socket = io();
     var userNickSt=  $('#userNick').value;
     var color= "";
+   
+    
     
     socket.emit('wel', "hidi");
     $('form').submit(function(){
@@ -83,7 +87,7 @@ $(function() {
          
     });
        
-    
+    document.cookie = "name="+userNickSt;
     
 
 
