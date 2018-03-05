@@ -30,14 +30,8 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function(socket){
     //initialization of client
     io.to(socket.id).emit('wel',msgStore);
-   
+   console.log(socket.id);
     var nick = "User"+clientCount++;
-    // while (nick in Object.values(mapping))
-    // {
-    //     clientCount++;
-    //     nick = "User"+clientCount;
-       
-    // }
     if (socket.id in mapping)
     {
         console.log("already exists");
@@ -45,14 +39,7 @@ io.on('connection', function(socket){
         mapping[socket.id] = nick;
         io.to(socket.id).emit('nick', nick);
     }
-   
-    let c = io.clients().sockets;
-    let activeClients = [];
-    for (n in c)
-    {
-       activeClients.push(mapping[n]);
-    }
-    io.emit('userList', activeClients);
+    reSendActiveList(io);
        
     socket.on('chat', function( msg){
         msgCount++;
@@ -61,7 +48,6 @@ io.on('connection', function(socket){
         
         var msgObj = {time_id:time, body:msg,clientId:chatUsr,color:colors[socket.id]};
         io.emit('chat',msgObj );
-        console.log("msgObj " +msgObj.time_id + " " + msgObj.body+ " "+msgObj.clientId);
         msgStore.push(msgObj);
         if (msgCount>=200){
             msgStore.shift();
@@ -79,30 +65,41 @@ io.on('connection', function(socket){
             console.log("nick is granted");
             mapping[socket.id] = nick;
             io.to(socket.id).emit('nick', nick);
-            let c = io.clients().sockets;
-            let activeClients = [];
-            for (n in c)
-            {
-            activeClients.push(mapping[n]);
-            }
-            io.emit('userList', activeClients);
+            reSendActiveList(io);
         }
        
       
     });
    
     socket.on('disconnect', function (socket) {
-        let c = io.clients().sockets;
-        let activeClients = [];
-        for (n in c)
-        {
-           activeClients.push(mapping[n]);
-        }
-        io.emit('userList', activeClients);
+        reSendActiveList(io);
       });
-    
+    socket.on('reconnect', function (sameNick) {
+        console.log('reconnecting');
+        for (var n in mapping)
+       {
+           if (mapping[n] = sameNick)
+           {
+               console.log(n);
+               delete mapping[n];
+               mapping[socket.id] = sameNick;
+
+           }
+       }
+      
+      });
     socket.on('nickcolor', function (color) {
        colors[socket.id] = color;
       });
 
+      function reSendActiveList(io){
+        let c = io.clients().sockets;
+        let activeClients = [];
+        for (n in c)
+        {
+        activeClients.push(mapping[n]);
+        }
+        io.emit('userList', activeClients);
+
+      }
 });

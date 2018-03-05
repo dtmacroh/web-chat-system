@@ -2,13 +2,20 @@
 
 alert(document.cookie);
 $(function() {
+
+    
     var socket = io();
     var userNickSt=  $('#userNick').value;
     var color= "";
    
-    
-    
-    socket.emit('wel', "hidi");
+    // if (document.cookie!=null)
+    // {
+        
+    //     socket.emit('reconnect', document.cookie);
+    // }
+    socket.emit('reconnect', document.cookie);
+
+
     $('form').submit(function(){
 
     var message = $('#m').val();
@@ -59,6 +66,8 @@ $(function() {
         if (nick!=1){
             $('#userNick').text(nick);
             userNickSt =  $('#userNick').text();
+            document.cookie = "name="+ userNickSt;
+    
         }
       
     
@@ -87,8 +96,7 @@ $(function() {
          
     });
        
-    document.cookie = "name="+userNickSt;
-    
+   
 
 
 });
