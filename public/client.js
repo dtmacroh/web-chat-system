@@ -1,3 +1,11 @@
+/*
+
+Name:       Debbie Macrohon
+UCID:       10121170
+Description:Client side code for chat application
+
+*/
+
 // shorthand for $(document).ready(...)
 
 alert(document.cookie);

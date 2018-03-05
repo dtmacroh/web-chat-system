@@ -1,3 +1,11 @@
+/*
+
+Name:       Debbie Macrohon
+UCID:       10121170
+Description:Server side coe for chat application
+
+
+*/
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
