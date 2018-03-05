@@ -13,7 +13,14 @@ $(function() {
         
     //     socket.emit('reconnect', document.cookie);
     // }
-    socket.emit('reconnect', document.cookie);
+    console.log("cooks "+document.cookie);
+    if (document.cookie!=null){
+        socket.emit('rec', document.cookie);
+    }
+    else{
+        socket.emit('emit');
+    }
+   
 
 
     $('form').submit(function(){
@@ -67,7 +74,7 @@ $(function() {
             $('#userNick').text(nick);
             userNickSt =  $('#userNick').text();
             document.cookie = "name="+ userNickSt;
-    
+            alert(document.cookie);
         }
       
     
@@ -90,7 +97,7 @@ $(function() {
         $('#userList').empty();
         for ( var i=0; i< list.length;i++)
         {
-            console.log(list[i]);
+            // console.log(list[i]);
              $('#userList').append($('<li>').text(list[i]));
         }
          

@@ -29,17 +29,20 @@ app.use(express.static(__dirname + '/public'));
 // listen to 'chat' messages
 io.on('connection', function(socket){
     //initialization of client
+   socket.on('init', function(){
     io.to(socket.id).emit('wel',msgStore);
-   console.log(socket.id);
-    var nick = "User"+clientCount++;
-    if (socket.id in mapping)
-    {
-        console.log("already exists");
-    } else{
-        mapping[socket.id] = nick;
-        io.to(socket.id).emit('nick', nick);
-    }
-    reSendActiveList(io);
+    console.log(socket.id);
+     var nick = "User"+clientCount++;
+     if (socket.id in mapping)
+     {
+         console.log("already exists");
+     } else{
+         mapping[socket.id] = nick;
+         io.to(socket.id).emit('nick', nick);
+     }
+     reSendActiveList(io);
+   });
+   
        
     socket.on('chat', function( msg){
         msgCount++;
@@ -74,8 +77,9 @@ io.on('connection', function(socket){
     socket.on('disconnect', function (socket) {
         reSendActiveList(io);
       });
-    socket.on('reconnect', function (sameNick) {
+    socket.on('rec', function (nick) {
         console.log('reconnecting');
+        var sameNick  = nick.substring(nick.length-5);
         for (var n in mapping)
        {
            if (mapping[n] = sameNick)
@@ -86,7 +90,7 @@ io.on('connection', function(socket){
 
            }
        }
-      
+       io.to(socket.id).emit('nick', sameNick);
       });
     socket.on('nickcolor', function (color) {
        colors[socket.id] = color;
