@@ -21,15 +21,6 @@ http.listen( port, function () {
     console.log('listening on port', port);
 });
 
-// app.use (cookieParser ());
-// app.get ('/', function(req, res) {
-//     // check existing cookies
-//     console.log("Cookies :  ", req.cookies);
-//     // set a new cookie that will last 1 hr
-//     res.cookie ("user", "bob", { maxAge: 60 * 60 * 1000 });
-//     // clear a cookie (logout)
-//     res.clearCookie("user");
-//   });
 app.use(express.static(__dirname + '/public'));
 
   

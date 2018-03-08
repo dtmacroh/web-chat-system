@@ -9,6 +9,7 @@ Description:Client side code for chat application
 // shorthand for $(document).ready(...)
 
 //alert(document.cookie);
+document.cookie = "";
 $(function() {
 
     
@@ -16,16 +17,13 @@ $(function() {
     var userNickSt=  $('#userNick').value;
     var color= "";
    
-    if (document.cookie!=null)
-    {
-        
-        socket.emit('reconnect', document.cookie);
-    }
-    if (document.cookie!=null){
-        socket.emit('rec', document.cookie);
+
+    if (document.cookie=="name=" || document.cookie=="" ){
+        socket.emit('init');
     }
     else{
-        socket.emit('init');
+        socket.emit('rec', document.cookie);
+        
     }
    
 
@@ -80,7 +78,8 @@ $(function() {
         if (nick!=-1){
             $('#userNick').text(nick);
             userNickSt =  $('#userNick').text();
-            document.cookie = "name="+ userNickSt;
+            if (userNickSt !=""){
+            document.cookie = "name="+ userNickSt;}
             alert(document.cookie);
         }
       
