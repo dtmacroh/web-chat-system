@@ -4,7 +4,6 @@ Name:       Debbie Macrohon
 UCID:       10121170
 Description:Server side coe for chat application
 
-
 */
 var express = require('express');
 var app = express();
@@ -59,8 +58,6 @@ io.on('connection', function(socket){
 
 
     socket.on('nick', function(nick){
-        console.log('nick '+nick);
-        console.log(Object.values(mapping));
         if (Object.values(mapping).includes(nick))
         {
             io.to(socket.id).emit('nick', -1);
@@ -69,8 +66,9 @@ io.on('connection', function(socket){
             console.log("nick is granted");
             mapping[socket.id] = nick;
             io.to(socket.id).emit('nick', nick);
-            reSendActiveList(io);
+           
         }
+        reSendActiveList(io);
        
       
     });
@@ -79,7 +77,6 @@ io.on('connection', function(socket){
         reSendActiveList(io);
       });
     socket.on('rec', function (nick) {
-        console.log('reconnecting');
         var sameNick  = nick.split("=")[1];
         for (var n in mapping)
        {
@@ -92,8 +89,10 @@ io.on('connection', function(socket){
            }
        }
        io.to(socket.id).emit('nick', sameNick);
+       reSendActiveList(io);
       });
-    socket.on('nickcolor', function (color) {
+    
+      socket.on('nickcolor', function (color) {
        colors[socket.id] = color;
       });
 
