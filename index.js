@@ -38,17 +38,17 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function(socket){
     //initialization of client
    socket.on('init', function(){
-    io.to(socket.id).emit('wel',msgStore);
-    console.log(socket.id);
-     var nick = "User"+clientCount++;
-     if (socket.id in mapping)
-     {
-         console.log("already exists");
-     } else{
-         mapping[socket.id] = nick;
-         io.to(socket.id).emit('nick', nick);
-     }
-     reSendActiveList(io);
+        io.to(socket.id).emit('wel',msgStore);
+        console.log(socket.id);
+        var nick = "User"+clientCount++;
+        if (socket.id in mapping)
+        {
+            console.log("already exists");
+        } else{
+            mapping[socket.id] = nick;
+            io.to(socket.id).emit('nick', nick);
+        }
+        reSendActiveList(io);
    });
    
        
@@ -68,7 +68,9 @@ io.on('connection', function(socket){
 
 
     socket.on('nick', function(nick){
-        if (nick in Object.values(mapping))
+        console.log('nick '+nick);
+        console.log(Object.values(mapping));
+        if (Object.values(mapping).includes(nick))
         {
             io.to(socket.id).emit('nick', -1);
         }
@@ -87,7 +89,7 @@ io.on('connection', function(socket){
       });
     socket.on('rec', function (nick) {
         console.log('reconnecting');
-        var sameNick  = nick.substring(nick.length-5);
+        var sameNick  = nick.split("=")[1];
         for (var n in mapping)
        {
            if (mapping[n] = sameNick)

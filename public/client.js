@@ -8,7 +8,7 @@ Description:Client side code for chat application
 
 // shorthand for $(document).ready(...)
 
-alert(document.cookie);
+//alert(document.cookie);
 $(function() {
 
     
@@ -21,13 +21,13 @@ $(function() {
         
     //     socket.emit('reconnect', document.cookie);
     // }
-    console.log("cooks "+document.cookie);
-    if (document.cookie!=null){
-        socket.emit('rec', document.cookie);
-    }
-    else{
-        socket.emit('emit');
-    }
+    //console.log("cooks "+document.cookie);
+    // if (document.cookie!=null){
+    //     socket.emit('rec', document.cookie);
+    // }
+    // else{
+        socket.emit('init');
+    //}
    
 
 
@@ -78,7 +78,7 @@ $(function() {
     socket.on('nick', function(nick){
         
        //insert check here
-        if (nick!=1){
+        if (nick!=-1){
             $('#userNick').text(nick);
             userNickSt =  $('#userNick').text();
             document.cookie = "name="+ userNickSt;
