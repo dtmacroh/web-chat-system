@@ -22,14 +22,11 @@ http.listen( port, function () {
 
 app.use(express.static(__dirname + '/public'));
 
-  
-
 // listen to 'chat' messages
 io.on('connection', function(socket){
-    //initialization of client
+    reSendActiveList(io);
    socket.on('init', function(){
         io.to(socket.id).emit('wel',msgStore);
-        console.log(socket.id);
         var nick = "User"+clientCount++;
         if (socket.id in mapping)
         {
@@ -46,14 +43,12 @@ io.on('connection', function(socket){
         msgCount++;
         var time = new Date();
         var chatUsr = mapping[socket.id];
-        
         var msgObj = {time_id:time, body:msg,clientId:chatUsr,color:colors[socket.id]};
         io.emit('chat',msgObj );
         msgStore.push(msgObj);
         if (msgCount>=200){
             msgStore.shift();
         }
-       
     });
 
 
@@ -69,8 +64,6 @@ io.on('connection', function(socket){
            
         }
         reSendActiveList(io);
-       
-      
     });
    
     socket.on('disconnect', function (socket) {
@@ -78,18 +71,15 @@ io.on('connection', function(socket){
       });
     socket.on('rec', function (nick) {
         var sameNick  = nick.split("=")[1];
-        for (var n in mapping)
-       {
-           if (mapping[n] = sameNick)
-           {
-               console.log(n);
-               delete mapping[n];
-               mapping[socket.id] = sameNick;
-
-           }
-       }
-       io.to(socket.id).emit('nick', sameNick);
-       reSendActiveList(io);
+        if( Object.values(mapping).includes(sameNick))
+        {
+            console.log(sameNick);
+            delete mapping[n];
+        }
+        mapping[socket.id] = sameNick;
+        io.to(socket.id).emit('nick', sameNick);
+        io.to(socket.id).emit('wel',msgStore);
+        reSendActiveList(io);
       });
     
       socket.on('nickcolor', function (color) {
@@ -100,10 +90,7 @@ io.on('connection', function(socket){
         let c = io.clients().sockets;
         let activeClients = [];
         for (n in c)
-        {
-        activeClients.push(mapping[n]);
-        }
+        { activeClients.push(mapping[n]);}
         io.emit('userList', activeClients);
-
       }
 });
