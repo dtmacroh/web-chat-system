@@ -16,18 +16,17 @@ $(function() {
     var userNickSt=  $('#userNick').value;
     var color= "";
    
-    // if (document.cookie!=null)
-    // {
+    if (document.cookie!=null)
+    {
         
-    //     socket.emit('reconnect', document.cookie);
-    // }
-    //console.log("cooks "+document.cookie);
-    // if (document.cookie!=null){
-    //     socket.emit('rec', document.cookie);
-    // }
-    // else{
+        socket.emit('reconnect', document.cookie);
+    }
+    if (document.cookie!=null){
+        socket.emit('rec', document.cookie);
+    }
+    else{
         socket.emit('init');
-    //}
+    }
    
 
 
