@@ -3,15 +3,22 @@ body { font: 13px Helvetica, Arial; }
 header{margin: 20px;
     text-align: center;}
 #chat-box-send{
-    bottom: 10px;
+    bottom: 0px;
     position:fixed;
     right:0;
     left:0;
     margin-left:20%;
     margin-right: 20%;
+   
+/*
+   
+  
+    */
+    
 }
 .chat-box{
     margin-top:10px;
+    margin-bottom:10px;
     background-color: darkgray;
     padding: 5px;
     overflow-y: scroll;
@@ -22,14 +29,15 @@ header{margin: 20px;
 }
 form 
 { 
-    background: #000; 
-    padding: 3px; 
+    margin-top:10px;
+    padding: 10px; 
     width: 100%; 
    
 }
 
-form input {  padding: 10px; width: 10%;  }
+form input {  padding: 10px; margin-top:10px;border-width: 2px ;width:100%;border-color:black;}
 form button { visibility: hidden; }
+
 
 #messages { list-style-type: none; margin: 0; padding: 0; }
 #messages li { padding: 5px 10px; }
