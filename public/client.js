@@ -13,9 +13,6 @@ $(function() {
     var socket = io();
     var userNickSt=  $('#userNick').value;
     var color= "";
-
-
-   
     if (document.cookie=="" ){socket.emit('init'); }
     else{socket.emit('rec', document.cookie); }
    
@@ -75,11 +72,8 @@ $(function() {
             var name=cookiename;
             var value="";
             document.cookie = name + "=" + value + expires ;                    
-        }
-        
+        }   
     }
-
-
     socket.on('wel', function(wel){
         for ( var i=0; i< wel.length;i++)
         {   doChat(wel[i]);   }

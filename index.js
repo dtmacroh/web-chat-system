@@ -36,8 +36,7 @@ io.on('connection', function(socket){
         }
         reSendActiveList(io);
    });
-   
-       
+        
     socket.on('chat', function( msg){
         msgCount++;
         var time = new Date();
@@ -50,7 +49,6 @@ io.on('connection', function(socket){
         }
     });
 
-
     socket.on('nick', function(nick){
         if (Object.values(mapping).includes(nick))
         {
@@ -60,7 +58,6 @@ io.on('connection', function(socket){
             console.log("nick is granted");
             mapping[socket.id] = nick;
             io.to(socket.id).emit('nick', nick);
-           
         }
         reSendActiveList(io);
     });
@@ -90,6 +87,5 @@ io.on('connection', function(socket){
         for (n in c)
         { activeClients.push(mapping[n]);}
         io.emit('userList', activeClients);
-      }
-     
+      }  
 });
