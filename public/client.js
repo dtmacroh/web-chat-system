@@ -90,7 +90,7 @@ $(function() {
         var time = new Date(msg.time_id);
         var body = msg.body;
         $('#messages').append($('<li>').html( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+
-            '<p style = "display:inline; color:#'+msg.color+'"> &nbsp'+
+            '<p style = "display:inline; color:'+msg.color+'"> &nbsp'+
              msg.clientId+'&nbsp</p>'+ msg.body));
           
            if (userNickSt==msg.clientId){
