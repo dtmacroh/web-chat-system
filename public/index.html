@@ -9,18 +9,31 @@
     
     <div class="container">
         <header><h1>&nbsp</h1></header>
-      <div class="col-md-8">
+      <div class="col-md-8 col-lg-8 col-sm-8">
         <div>You are <p id="userNick"></p></div>
-        <div class="chat-box">
-        <ul id="messages"></ul>
+        <div class="chat-box flexbox-container">
+        <ul id="messages" class = "aligner-item--bottom">
+         
+        </ul>
         </div> </div>
-      <div class="col-md-4" > 
+      <div class="col-md-4 col-sm-4 col-lg-4" > 
           <div>Online Users</div>
-        <div class="chat-box" id = "userList"></div>
+        <div class="chat-box flexbox-container" >
+          <div id = "userList" class ="aligner-item--bottom" ></div>
+        </div>
           
       </div> 
 
-    
+      <div id = "chat-box-send " class="flexbox-container col-md-12 col-lg-12 col-sm-12" >
+        <form>
+          <div class="form-group aligner-item--bottom">
+            <form action="">
+              <input id="m"  autocomplete="off" /><button>Send</button>
+            </form>
+            </div>
+          </form>
+        </div>
+      </div>
      
    
     
@@ -28,16 +41,7 @@
 
   </div>
 
-  <div id = "chat-box-send">
-    <form>
-      <div class="form-group">
-        <form action="">
-          <input id="m"  autocomplete="off" /><button>Send</button>
-        </form>
-        </div>
-      </form>
-    </div>
-  </div>
+  
 
     <script
        src="https://code.jquery.com/jquery-3.1.1.min.js"

@@ -1,28 +1,52 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font: 13px Helvetica, Arial; }
+body { font: 13px Helvetica, Arial; 
+   
+
+}
+
 header{margin: 20px;
     text-align: center;}
 #chat-box-send{
     bottom: 0px;
     position:fixed;
-    right:0;
-    left:0;
-    margin-left:10%;
-    margin-right: 10%;
-   
-/*
-   
-  
-    */
+    
+
     
 }
+.flexbox-container {
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+    -ms-box-orient: vertical;
+   
+	-ms-flex-align:bottom;
+	-webkit-align-items: bottom;
+	-webkit-box-align: bottom;
+    align-self: flex-end;
+    align-items: bottom;
+   
+   
+}
+.aligner-item--bottom {
+    align-self: flex-end;
+    align-items: center;
+     flex-basis:100%;
+
+    
+  }
 .chat-box{
     margin-top:10px;
     margin-bottom:10px;
     background-color: darkgray;
     padding: 5px;
     overflow-y: scroll;
-    height:85vh;
+    height:80vh;
+    align-items: bottom;
+}
+li{
+    width:100%;
+    display:block;
+    word-wrap:break-word;
 }
 #userNick{
     display:inline;
