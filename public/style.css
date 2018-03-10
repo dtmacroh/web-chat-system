@@ -1,17 +1,29 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font: 13px Helvetica, Arial; 
+body {
    
+    font: 15px 'Didact Gothic',Garamond, Helvetica, Arial; 
+    background: #2C3E50;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #4CA1AF, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
 
 }
 
 header{margin: 20px;
     text-align: center;}
-#chat-box-send{
-    bottom: 0px;
+/* #chat-box-send{
+    bottom:.01em;
+    right:0;
+    left:0;
     position:fixed;
+    align-content: center;  
+    width:80%;
     
+} */
+.headerInfo{
+    color:white;
+    font-weight:bold;
 
-    
 }
 .flexbox-container {
 	display: -ms-flexbox;
@@ -42,6 +54,10 @@ header{margin: 20px;
     overflow-y: scroll;
     height:80vh;
     align-items: bottom;
+    border-style: solid;
+    border-color: black;
+    box-shadow: 3px 7px;
+
 }
 li{
     width:100%;
