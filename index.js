@@ -2,7 +2,7 @@
 
 Name:       Debbie Macrohon
 UCID:       10121170
-Description:Server side coe for chat application
+Description:Server side code for chat application
 
 */
 var express = require('express');
@@ -25,13 +25,12 @@ app.use(express.static(__dirname + '/public'));
 // listen to 'chat' messages
 io.on('connection', function(socket){
     reSendActiveList(io);
-   socket.on('init', function(){
+   
+    socket.on('init', function(){
         io.to(socket.id).emit('wel',msgStore);
         var nick = "User"+clientCount++;
         if (socket.id in mapping)
-        {
-            console.log("already exists");
-        } else{
+        {  console.log("already exists");} else{
             mapping[socket.id] = nick;
             io.to(socket.id).emit('nick', nick);
         }
@@ -46,7 +45,7 @@ io.on('connection', function(socket){
         var msgObj = {time_id:time, body:msg,clientId:chatUsr,color:colors[socket.id]};
         io.emit('chat',msgObj );
         msgStore.push(msgObj);
-        if (msgCount>=200){
+        if (msgCount>=11){
             msgStore.shift();
         }
     });
@@ -73,7 +72,6 @@ io.on('connection', function(socket){
         var sameNick  = nick.split("=")[1];
         if( Object.values(mapping).includes(sameNick))
         {
-            console.log(sameNick);
             delete mapping[n];
         }
         mapping[socket.id] = sameNick;
@@ -93,4 +91,5 @@ io.on('connection', function(socket){
         { activeClients.push(mapping[n]);}
         io.emit('userList', activeClients);
       }
+     
 });

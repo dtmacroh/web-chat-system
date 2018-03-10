@@ -2,7 +2,9 @@
 
 Name:       Debbie Macrohon
 UCID:       10121170
-Description:Client side code for chat application
+Description:Client side code for chat application. One of the code snippets 
+    (for clearing the cookies) is taken from  
+    https://www.sitepoint.com/community/t/clear-all-cookies-from-a-website/224983/2
 
 */
 
@@ -11,8 +13,10 @@ $(function() {
     var socket = io();
     var userNickSt=  $('#userNick').value;
     var color= "";
+
+
    
-    if (document.cookie=="name=" || document.cookie=="" ){socket.emit('init'); }
+    if (document.cookie=="" ){socket.emit('init'); }
     else{socket.emit('rec', document.cookie); }
    
     $('form').submit(function(){
@@ -42,14 +46,40 @@ $(function() {
         
         if (nick!=-1){
             $('#userNick').text(nick);
-            userNickSt =  $('#userNick').text();
+            userNickSt =  $('#userNick').text();      
             if (userNickSt !=""){
-            document.cookie = "name="+ nick;}
-            alert(document.cookie);
+               
+                clearListCookies();
+                document.cookie = "name="+ nick;
+            }
         }
         else{alert("nickname is in use!");}
     
     });
+    
+    //the following function was taken from 
+    //https://www.sitepoint.com/community/t/clear-all-cookies-from-a-website/224983/2
+    function clearListCookies()
+    {   
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++)
+        {   
+            var spcook =  cookies[i].split("=");
+            deleteCookie(spcook[0]);
+        }
+        function deleteCookie(cookiename)
+        {
+            var d = new Date();
+            d.setDate(d.getDate() - 1);
+            var expires = ";expires="+d;
+            var name=cookiename;
+            var value="";
+            document.cookie = name + "=" + value + expires ;                    
+        }
+        
+    }
+
+
     socket.on('wel', function(wel){
         for ( var i=0; i< wel.length;i++)
         {   doChat(wel[i]);   }
