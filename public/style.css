@@ -28,14 +28,8 @@ header{margin: 20px;
  .flexbox-container {
     display: flex;
     flex-flow: column;
-   
-   
 }
-.flexbox-container-chat {
-    display: flex;
-    flex-flow: column;
 
-}
 
 .aligner-item--bottom {
     flex: 1 1 auto;
