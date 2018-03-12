@@ -26,29 +26,21 @@ header{margin: 20px;
 
 }
  .flexbox-container {
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-    -ms-box-orient: vertical;
-   
-	-ms-flex-align:bottom;
-	-webkit-align-items: bottom;
-	-webkit-box-align: bottom;
-    align-self: flex-end;
-    flex-direction: column;
-    flex-wrap: wrap;
+    display: flex;
+    flex-flow: column;
    
    
 }
-#flexwrapper{
+.flexbox-container-chat {
+    display: flex;
+    flex-flow: column;
 
-    flex-direction: column;
 }
+
 .aligner-item--bottom {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column-reverse;
-  
     overflow-y: scroll;
  
   }     
@@ -70,6 +62,8 @@ li{
     width:100%;
     display:block;
     word-wrap:break-word;
+  
+    
 }
 #userNick{
     display:inline;
@@ -77,10 +71,7 @@ li{
 form 
 { 
     margin-top:10px;
- 
     width: 100%; 
-  
-   
 }
 
 form input { border-radius: 15px; margin-top:10px;  padding:10px;border-width: 2px ;width:100%;border-color:black;}

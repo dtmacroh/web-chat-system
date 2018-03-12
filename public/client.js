@@ -82,19 +82,21 @@ $(function() {
         $('#userList').empty();
         for ( var i=0; i< list.length;i++)
         {
-             $('#userList').append($('<li>').text(list[i]));
+             $('#userList').prepend($('<li>').text(list[i]));
         }
          
     });
     function doChat(msg){
         var time = new Date(msg.time_id);
         var body = msg.body;
-        $('#messages').append($('<li>').html( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+
-            '<p style = "display:inline; color:'+msg.color+'"> &nbsp'+
-             msg.clientId+'&nbsp</p>'+ msg.body));
+        var toPutIn = $('<li>').html( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+
+        '<p style = "display:inline; color:'+msg.color+'"> &nbsp'+
+         msg.clientId+'&nbsp</p>'+ msg.body);
+         if (userNickSt==msg.clientId){
+            toPutIn.css( "font-weight", "bold" );
+          }
+        $('#messages').prepend(toPutIn);
           
-           if (userNickSt==msg.clientId){
-             $( "#messages" ).children().last().css( "font-weight", "bold" );
-           }
+          
     }
 });
