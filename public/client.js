@@ -96,6 +96,7 @@ $(function() {
             toPutIn.css( "font-weight", "bold" );
           }
         $('#messages').prepend(toPutIn);
+      
         $('#messages').stop().animate({scrollTop:($('#messages')[0].scrollHeight)},500);
         
           

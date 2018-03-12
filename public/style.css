@@ -1,4 +1,7 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box;
+    min-height:30px;
+    min-width: 0px;
+     }
 body {
    
     font: 15px 'Didact Gothic',Garamond, Helvetica, Arial; 
@@ -66,6 +69,7 @@ form
 { 
     margin-top:10px;
     width: 100%; 
+    border-radius: 15px;
 }
 
 form input { border-radius: 15px; margin-top:10px;  padding:10px;border-width: 2px ;width:100%;border-color:black;}
