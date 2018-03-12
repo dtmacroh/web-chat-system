@@ -25,7 +25,7 @@ header{margin: 20px;
     font-weight:bold;
 
 }
-.flexbox-container {
+ .flexbox-container {
 	display: -ms-flexbox;
 	display: -webkit-flex;
 	display: flex;
@@ -35,23 +35,29 @@ header{margin: 20px;
 	-webkit-align-items: bottom;
 	-webkit-box-align: bottom;
     align-self: flex-end;
-    align-items: bottom;
+    flex-direction: column;
+    flex-wrap: wrap;
    
    
 }
-.aligner-item--bottom {
-    align-self: flex-end;
-    align-items: center;
-     flex-basis:100%;
+#flexwrapper{
 
-    
-  }
+    flex-direction: column;
+}
+.aligner-item--bottom {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column-reverse;
+  
+    overflow-y: scroll;
+ 
+  }     
 .chat-box{
     margin-top:10px;
     margin-bottom:10px;
     background-color: darkgray;
     padding: 5px;
-    overflow-y: scroll;
+   
     height:80vh;
     align-items: bottom;
     border-style: solid;
