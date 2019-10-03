@@ -10,3 +10,10 @@ Install node.JS, Express.JS on your machine.
 In your terminal, select folder that this project is in, and do command "node start".
 Upon starting, you should expect to see the phrase "Listening on port 1234".
 Done!
+
+##Usage:
+
+###Updating nickname
+In the chat box, type "/nick" followed by a space and your desired nickname. 
+For example, I type /nick deb to replace username from UserN (N being an 
+arbitrary number) to deb.
