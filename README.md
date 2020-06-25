@@ -17,3 +17,9 @@ Done!
 In the chat box, type "/nick" followed by a space and your desired nickname. 
 For example, I type /nick deb to replace username from UserN (N being an 
 arbitrary number) to deb.
+
+
+Running on AWS:
+Go to AWS website. Go to Services -> EC2.
+
+Login: ec2-user
