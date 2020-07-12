@@ -89,14 +89,22 @@ $(function() {
     function doChat(msg){
         var time = new Date(msg.time_id);
         var body = msg.body;
-        var toPutIn = $('<li>').html( time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })+
-        '<p style = "display:inline; color:'+msg.color+'"> &nbsp'+
-         msg.clientId+'&nbsp</p>'+ msg.body);
+        var toPutIn = $('<li>');
+        var divMessage = document.createElement("div");
+           
+        
          if (userNickSt==msg.clientId){
-            toPutIn.css( "font-weight", "bold" );
+            $(toPutIn).addClass("me");
+            $(toPutIn).append($('<img>').attr("src", "img/about.jpg"));
+            $(toPutIn).append($('<p>').text(msg.body));   
           }
-        $('#messages').prepend(toPutIn);
-      
+          else{ 
+            $(toPutIn).addClass("you");
+            $(toPutIn).append($('<img>').attr("src", "img/about.jpg"));
+            $(toPutIn).append($('<p>').text(msg.body));
+           //   $('li div img').attr("src", "../img/bit.png");
+            }
+         $('#messages').prepend(toPutIn);
         $('#messages').stop().animate({scrollTop:($('#messages')[0].scrollHeight)},500);
         
           

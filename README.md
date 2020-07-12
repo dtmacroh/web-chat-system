@@ -23,3 +23,9 @@ Running on AWS:
 Go to AWS website. Go to Services -> EC2.
 
 Login: ec2-user
+
+Go to "NETWORK & SECURITY" -> "Security Groups"
+Find the group your instance is a part of
+Click on "Inbound"
+Add the HTTP port 80
+Apply the changes.
